@@ -17,6 +17,7 @@ function App() {
       .then(res => setUsers(res.data))
   }, [])
 
+
   const getUser = () => {
     axios.get('https://users-crud1.herokuapp.com/users/')
       .then(res => setUsers(res.data))
@@ -62,7 +63,19 @@ function App() {
       {
         showInfo && <div className="alert"><p>{info}</p></div>
       }
-      <button onClick={() => changeButton()} className="material-symbols-outlined btn-add-user">{changeText}</button>
+      {
+        users.length >= 1 ? (
+          <button onClick={() => changeButton()} className="material-symbols-outlined btn-add-user">{changeText}</button>
+        ) : (
+          <div className="list-empty">
+            <h2 className='title'>Ho ho!</h2>
+            <div className='empty-alert'>
+              <p>The list it's empty. Have click in the button for add a new user.</p>
+              <button onClick={() => changeButton()} className="material-symbols-outlined">add</button>
+            </div>
+          </div>
+        )
+      }
       {
         showForm && <UsersForm userSelected={userSelected} getUser={getUser} timer={timer} />
       }
